@@ -8,6 +8,20 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.4",
     "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "name": "backend-bibliosmart",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Nathália Gumbio",
+  "license": "ISC",
+  "description": ""
 }
