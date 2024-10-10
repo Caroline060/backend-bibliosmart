@@ -31,8 +31,6 @@ export class Aluno {
      * @param celular Número de celular do aluno
      */
     constructor (
-        idAluno: number,
-        ra: string,
         nome: string,
         sobrenome: string,
         dataNascimento: Date,
@@ -40,7 +38,6 @@ export class Aluno {
         email: string,
         celular: string
     ) { 
-        this.ra = ra; 
         this.nome = nome; 
         this.sobrenome = sobrenome; 
         this.dataNascimento = dataNascimento; 
