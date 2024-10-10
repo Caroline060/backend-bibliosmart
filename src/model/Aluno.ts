@@ -4,7 +4,7 @@ export class Aluno {
     /* Identificador do Aluno */
     private idAluno: number = 0;
     /* ra do Aluno */
-    private ra: string;
+    private ra: string = "";
     /* Nome do Aluno */
     private nome: string;
     /* Sobrenome do Aluno */
@@ -39,8 +39,7 @@ export class Aluno {
         endereco: string,
         email: string,
         celular: string
-    ) {
-        this.idAluno = idAluno; 
+    ) { 
         this.ra = ra; 
         this.nome = nome; 
         this.sobrenome = sobrenome; 

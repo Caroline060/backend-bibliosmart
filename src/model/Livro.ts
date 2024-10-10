@@ -37,7 +37,6 @@ export class Livro {
      * @param statusLivroEmprestado Status do livro em relação a empréstimos
      */
     constructor (
-        idLivro: number,
         titulo: string,
         autor: string,
         editora: string,
@@ -48,7 +47,6 @@ export class Livro {
         valorAquisicao: number,
         statusLivroEmprestado: string
     ) {
-        this.idLivro = idLivro; 
         this.titulo = titulo; 
         this.autor = autor; 
         this.editora = editora; 
