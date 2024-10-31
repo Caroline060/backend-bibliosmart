@@ -1,3 +1,8 @@
+import { DatabaseModel } from "./DataBaseModel";
+
+// armazenei o pool de conexões
+const database = new DatabaseModel().pool;
+
 /* Classe que representa um Aluno */
 export class Aluno {
 
@@ -174,4 +179,78 @@ export class Aluno {
     public setCelular(celular: string): void {
         this.celular = celular;
     }
+
+    static async listagemAlunos(): Promise<Array<Aluno> | null> {
+        // Objeto para armazenar a lista de alunos
+        const listaDeAlunos: Array<Aluno> = [];
+    
+        try {
+            // Query de consulta para selecionar todos os alunos do banco de dados
+            const querySelectAluno = `SELECT * FROM aluno;`;
+    
+            // Executa a consulta e armazena a resposta
+            const respostaBD = await database.query(querySelectAluno);
+    
+            // Itera sobre as linhas do resultado da consulta para criar objetos Aluno
+            respostaBD.rows.forEach((linha:any) => {
+                // Cria uma nova instância de Aluno com os dados da linha
+                const novoAluno = new Aluno(
+                    linha.nome,
+                    linha.sobrenome,
+                    linha.dataNascimento,
+                    linha.endereco,
+                    linha.email,
+                    linha.celular
+                );
+    
+                // Atribui o ID do aluno à instância de Aluno
+                novoAluno.setIdAluno(linha.id_aluno);
+    
+                // Adiciona o objeto aluno à lista de alunos
+                listaDeAlunos.push(novoAluno);
+            });
+    
+            // Retorna a lista de alunos criada
+            return listaDeAlunos;
+    
+        } catch (error) {
+            // Log de erro caso ocorra uma falha na consulta
+            console.log('Erro ao buscar lista de alunos. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return null; // Retorna null em caso de erro na consulta
+        }
+    }
+    
+    static async cadastroAluno(aluno: Aluno): Promise<boolean> {
+        try {
+            // Query para inserir um novo aluno no banco de dados
+            const queryInsertAluno = `INSERT INTO aluno (nome, sobrenome, dataNascimento, endereco, email, celular)
+                                      VALUES
+                                      ('${aluno.getNome()}', 
+                                      '${aluno.getSobrenome()}', 
+                                      ${aluno.getDataNascimento()}, 
+                                      '${aluno.getEndereco()}',
+                                      '${aluno.getEmail()}',
+                                      '${aluno.getCelular()}')
+                                      RETURNING id_aluno;`;
+    
+            // Executa a query no banco de dados e armazena a resposta
+            const respostaBD = await database.query(queryInsertAluno);
+    
+            // Verifica se a quantidade de linhas afetadas é diferente de 0 (indicando sucesso)
+            if (respostaBD.rowCount !== 0) {
+                console.log(`Aluno cadastrado com sucesso! ID do aluno: ${respostaBD.rows[0].id_aluno}`);
+                return true; // Retorna true indicando sucesso no cadastro
+            }
+    
+            return false; // Retorna false caso não tenha ocorrido a inserção
+    
+        } catch (error) {
+            // Log de erro no console caso ocorra uma falha na inserção
+            console.log('Erro ao cadastrar o aluno. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return false; // Retorna false em caso de erro
+        }
+    }
 }
+    

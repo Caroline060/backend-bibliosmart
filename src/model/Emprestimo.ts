@@ -1,3 +1,8 @@
+import { DatabaseModel } from "./DataBaseModel";
+
+// armazenei o pool de conexões
+const database = new DatabaseModel().pool;
+
 /* Classe que representa Empréstimo */
 export class Emprestimo {
 
@@ -107,4 +112,44 @@ export class Emprestimo {
     public setStatusEmprestimo(statusEmprestimo: string): void {
         this.statusEmprestimo = statusEmprestimo;
     }
-}
+
+    static async listagemEmprestimo(): Promise<Array<Emprestimo> | null> {
+        // Objeto para armazenar a lista de empréstimos
+        const listaDeEmprestimo: Array<Emprestimo> = [];
+    
+        try {
+            // Query de consulta para selecionar todos os empréstimos do banco de dados
+            const querySelectEmprestimo = `SELECT * FROM emprestimo;`;
+    
+            // Executa a consulta e armazena a resposta
+            const respostaBD = await database.query(querySelectEmprestimo);
+    
+            // Itera sobre as linhas do resultado da consulta para criar objetos Emprestimo
+            respostaBD.rows.forEach((linha:any) => {
+                // Cria uma nova instância de Emprestimo com os dados da linha
+                const novoEmprestimo = new Emprestimo(
+                    linha.idAluno,
+                    linha.idLivro,
+                    linha.dataEmprestimo,
+                    linha.dataDevolucao,
+                    linha.statusEmprestimo
+                );
+    
+                // Atribui o ID do empréstimo à instância de Emprestimo
+                novoEmprestimo.setIdEmprestimo(linha.id_emprestimo);
+    
+                // Adiciona o objeto Emprestimo à lista de empréstimos
+                listaDeEmprestimo.push(novoEmprestimo);
+            });
+    
+            // Retorna a lista de empréstimos criada
+            return listaDeEmprestimo;
+    
+        } catch (error) {
+            // Log de erro caso ocorra uma falha na consulta
+            console.log('Erro ao buscar lista de empréstimos. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return null; // Retorna null em caso de erro na consulta
+        }
+    }
+}    

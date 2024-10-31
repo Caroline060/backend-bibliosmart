@@ -1,3 +1,8 @@
+import { DatabaseModel } from "./DataBaseModel";
+
+// armazenei o pool de conexões
+const database = new DatabaseModel().pool;
+
 /* Classe que representa um Livro */
 export class Livro {
 
@@ -218,4 +223,82 @@ export class Livro {
     public setStatusLivroEmprestado(statusLivroEmprestado: string): void {
         this.statusLivroEmprestado = statusLivroEmprestado;
     }
-}
+    static async listagemLivros(): Promise<Array<Livro> | null> {
+        // Objeto para armazenar a lista de livros
+        const listaDeLivros: Array<Livro> = [];
+    
+        try {
+            // Query de consulta para selecionar todos os livros do banco de dados
+            const querySelectLivro = `SELECT * FROM livro;`;
+    
+            // Executa a consulta e armazena a resposta
+            const respostaBD = await database.query(querySelectLivro);
+    
+            // Itera sobre as linhas do resultado da consulta para criar objetos Livro
+            respostaBD.rows.forEach((linha:any) => {
+                // Cria uma nova instância de Livro com os dados da linha
+                const novoLivro = new Livro(
+                    linha.titulo,
+                    linha.autor,
+                    linha.editora,
+                    linha.anoPublicacao,
+                    linha.isbn,
+                    linha.quantTotal,
+                    linha.quantDisponivel,
+                    linha.valorAquisicao,
+                    linha.statusLivroEmprestado
+                );
+    
+                // Atribui o ID do livro à instância de Livro
+                novoLivro.setIdLivro(linha.id_livro);
+    
+                // Adiciona o objeto Livro à lista de livros
+                listaDeLivros.push(novoLivro);
+            });
+    
+            // Retorna a lista de livros criada
+            return listaDeLivros;
+    
+        } catch (error) {
+            // Log de erro caso ocorra uma falha na consulta
+            console.log('Erro ao buscar lista de livros. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return null; // Retorna null em caso de erro na consulta
+        }
+    }
+    
+    static async cadastroLivro(livro: Livro): Promise<boolean> {
+        try {
+            // Query para inserir um novo livro no banco de dados
+            const queryInsertLivro = `INSERT INTO livro (titulo, autor, editora, anoPublicacao, isbn, quantTotal, quantDisponivel, valorAquisicao, statusLivroEmprestado)
+                                      VALUES
+                                      ('${livro.getTitulo()}', 
+                                      '${livro.getAutor()}',
+                                      '${livro.getEditora()}',
+                                      '${livro.getAnoPublicacao()}',
+                                      '${livro.getIsbn()}',    
+                                      ${livro.getQuantTotal()},
+                                      ${livro.getQuantDisponivel()},
+                                      ${livro.getValorAquisicao()},
+                                      '${livro.getStatusLivroEmprestado()}')
+                                      RETURNING id_livro;`;
+    
+            // Executa a query no banco de dados e armazena a resposta
+            const respostaBD = await database.query(queryInsertLivro);
+    
+            // Verifica se a quantidade de linhas afetadas é diferente de 0 (indicando sucesso)
+            if (respostaBD.rowCount !== 0) {
+                console.log(`Livro cadastrado com sucesso! ID do livro: ${respostaBD.rows[0].id_livro}`);
+                return true; // Retorna true indicando sucesso no cadastro
+            }
+    
+            return false; // Retorna false caso não tenha ocorrido a inserção
+    
+        } catch (error) {
+            // Log de erro no console caso ocorra uma falha na inserção
+            console.log('Erro ao cadastrar o livro. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return false; // Retorna false em caso de erro
+        }
+    }
+}   
