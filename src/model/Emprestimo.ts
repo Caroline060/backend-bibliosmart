@@ -128,11 +128,11 @@ export class Emprestimo {
             respostaBD.rows.forEach((linha:any) => {
                 // Cria uma nova instância de Emprestimo com os dados da linha
                 const novoEmprestimo = new Emprestimo(
-                    linha.idAluno,
-                    linha.idLivro,
-                    linha.dataEmprestimo,
-                    linha.dataDevolucao,
-                    linha.statusEmprestimo
+                    linha.id_aluno,
+                    linha.id_livro,
+                    linha.data_emprestimo,
+                    linha.data_devolucao,
+                    linha.status_emprestimo
                 );
     
                 // Atribui o ID do empréstimo à instância de Emprestimo
