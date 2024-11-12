@@ -69,6 +69,8 @@ export class AlunoController extends Aluno {
                                         alunoRecebido.email,
                                         alunoRecebido.celular);
 
+            console.log(novoAluno);
+
             // Chama o método de cadastro e armazena o resultado (verdadeiro/falso)
             const repostaClasse = await Aluno.cadastroAluno(novoAluno);
 

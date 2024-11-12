@@ -33,5 +33,4 @@ router.post("/novo/livro", LivroController.novo);
 // Rota para listar os empréstimos
 router.get("/lista/emprestimos", EmprestimoController.todos);
 
-// Exporta o roteador
 export { router };
