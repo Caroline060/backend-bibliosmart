@@ -18,6 +18,8 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/lista/alunos", AlunoController.todos);
 // Rota para cadastrar um novo aluno
 router.post("/novo/aluno", AlunoController.novo);
+//Rota para remover aluno
+router.delete("/remover/aluno/:idAluno", AlunoController.remover);
 
 /* 
 * ROTAS PARA LIVROS

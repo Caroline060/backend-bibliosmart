@@ -247,9 +247,27 @@ export class Aluno {
 
         } catch (error) {
             // Log de erro no console caso ocorra uma falha na inserção
-            console.log('Erro ao cadastrar o aluno. Verifique os logs para mais detalhes.');
+            console.log('Erro ao cadastrar aluno. Verifique os logs para mais detalhes.');
             console.log(error);
             return false; // Retorna false em caso de erro
+        }
+    }
+
+    static async removerAluno(idAluno: number): Promise<boolean>{
+        try{
+            const queryDeleteAluno = `DELETE FROM aluno WHERE id_aluno = ${idAluno}`;
+
+            const respostaBD = await database.query(queryDeleteAluno);
+
+            if(respostaBD.rowCount != 0) {
+                console.log('Aluno removido com sucesso!');
+                return true;
+            } return false;
+
+        } catch (error) {
+            console.log('Erro ao remover aluno. Verifique os logs para mais detalhes.');
+            console.log(error);
+            return false;
         }
     }
 }

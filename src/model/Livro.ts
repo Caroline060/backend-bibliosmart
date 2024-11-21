@@ -241,12 +241,12 @@ export class Livro {
                     linha.titulo,
                     linha.autor,
                     linha.editora,
-                    linha.ano_publicacao,
+                    linha.anoPublicacao,
                     linha.isbn,
-                    linha.quant_total,
-                    linha.quant_disponivel,
-                    linha.valor_aquisicao,
-                    linha.status_livro_emprestado
+                    linha.quantTotal,
+                    linha.quantDisponivel,
+                    linha.valorAquisicao,
+                    linha.statusLivroEmprestado
                 );
     
                 // Atribui o ID do livro à instância de Livro

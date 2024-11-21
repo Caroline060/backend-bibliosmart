@@ -83,6 +83,8 @@ export class LivroController extends Livro {
                 livroRecebido.statusLivroEmprestado
             );
 
+            console.log(novoLivro);
+
             // Chama a função de cadastro e armazena a resposta (true, false)
             const repostaClasse = await Livro.cadastroLivro(novoLivro);
 
