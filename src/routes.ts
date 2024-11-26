@@ -18,7 +18,7 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/lista/alunos", AlunoController.todos);
 // Rota para cadastrar um novo aluno
 router.post("/novo/aluno", AlunoController.novo);
-//Rota para remover aluno
+// Rota para remover aluno
 router.delete("/remover/aluno/:idAluno", AlunoController.remover);
 
 /* 
@@ -28,6 +28,8 @@ router.delete("/remover/aluno/:idAluno", AlunoController.remover);
 router.get("/lista/livros", LivroController.todos);
 // Rota para cadastrar um novo livro
 router.post("/novo/livro", LivroController.novo);
+// Rota para remover livro
+router.delete("/remover/livro/:idLivro", LivroController.remover)
 
 /* 
 * ROTAS PARA EMPRÉSTIMOS
