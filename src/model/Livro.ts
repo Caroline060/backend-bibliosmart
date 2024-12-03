@@ -241,12 +241,12 @@ export class Livro {
                     linha.titulo,
                     linha.autor,
                     linha.editora,
-                    linha.anoPublicacao,
+                    linha.ano_publicacao,
                     linha.isbn,
-                    linha.quantTotal,
-                    linha.quantDisponivel,
-                    linha.valorAquisicao,
-                    linha.statusLivroEmprestado
+                    linha.quant_total,
+                    linha.quant_disponivel,
+                    linha.valor_aquisicao,
+                    linha.status_livro_emprestado
                 );
     
                 // Atribui o ID do livro à instância de Livro
@@ -332,7 +332,7 @@ export class Livro {
                                    quant_total = ${livro.getQuantTotal()},
                                    quant_disponivel = ${livro.getQuantDisponivel()},
                                    valor_aquisicao = ${livro.getValorAquisicao()},
-                                   status_livro_emprestado = '${livro.getStatusLivroEmprestado()}')
+                                   status_livro_emprestado = '${livro.getStatusLivroEmprestado()}'
                                    WHERE id_livro = ${livro.getIdLivro()};`;
 
             // Executa a consulta SQL no banco de dados e armazena o resultado

@@ -45,4 +45,33 @@ export class EmprestimoController extends Emprestimo {
             return res.status(400).json({ mensagem: "Não foi possível acessar a listagem de emprestimos" });
         }
     }
+
+    static async atualizar (req:Request, res:Response): Promise<any> {
+        try {
+            const emprestimoRecebido: EmprestimoDTO = req.body;
+            const idEmprestimoRecebido = parseInt(req.params.idAluno as string);
+            const emprestimoAtualizado = new Emprestimo(
+                emprestimoRecebido.idAluno,
+                emprestimoRecebido.idLivro,
+                emprestimoRecebido.dataEmprestimo,
+                emprestimoRecebido.dataDevolucao,
+                emprestimoRecebido.statusEmprestimo
+            );
+
+            emprestimoAtualizado.setIdEmprestimo(idEmprestimoRecebido);
+
+            const respostaModelo = await Emprestimo.atualizarEmprestimo(emprestimoAtualizado)
+
+            if (respostaModelo) {
+                return res.status(200).json({mensagem: "Emprestimo atualizado com sucesso!"});
+            } else {
+                return res.status(400).json({mensagem: "Não foi possível atualizar o emprestimo. Entre em contato com o administrador do sistema."})
+            }
+            
+        } catch (error) {
+            console.log(`Erro ao atualizar um emprestimo. ${error}`);
+
+            return res.status(400).json({ mensagem: "Não foi possível atualizar o emprestimo. Entre em contato com o administrador do sistema." });
+        }
+    }
 }

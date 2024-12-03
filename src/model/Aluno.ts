@@ -197,7 +197,7 @@ export class Aluno {
                 const novoAluno = new Aluno(
                     linha.nome,
                     linha.sobrenome,
-                    linha.dataNascimento,
+                    linha.data_nascimento,
                     linha.endereco,
                     linha.email,
                     linha.celular
@@ -280,7 +280,7 @@ export class Aluno {
                                    data_nascimento = ${aluno.getDataNascimento()}, 
                                    endereco = '${aluno.getEndereco()}', 
                                    email = '${aluno.getEmail()}',
-                                   celular = '${aluno.getCelular()}')
+                                   celular = '${aluno.getCelular()}'
                                    WHERE id_aluno = ${aluno.getIdAluno()};`;
 
             // Executa a consulta SQL no banco de dados e armazena o resultado

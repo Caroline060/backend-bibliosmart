@@ -122,4 +122,37 @@ export class LivroController extends Livro {
             return res.status(400).json({ mensagem: "Não foi possível remover o livro. Entre em contato com o administrador do sistema." });
         }
     }
+
+    static async atualizar (req:Request, res:Response): Promise<any> {
+        try {
+            const livroRecebido: LivroDTO = req.body;
+            const idLivroRecebido = parseInt(req.params.idLivro as string);
+            const livroAtualizado = new Livro(
+                livroRecebido.titulo,
+                livroRecebido.autor,
+                livroRecebido.editora,
+                livroRecebido.anoPublicacao,
+                livroRecebido.isbn,
+                livroRecebido.quantTotal,
+                livroRecebido.quantDisponivel,
+                livroRecebido.valorAquisicao,
+                livroRecebido.statusLivroEmprestado
+            );
+
+            livroAtualizado.setIdLivro(idLivroRecebido);
+
+            const respostaModelo = await Livro.atualizarLivro(livroAtualizado)
+
+            if (respostaModelo) {
+                return res.status(200).json({mensagem: "Livro atualizado com sucesso!"});
+            } else {
+                return res.status(400).json({mensagem: "Não foi possível atualizar o livro. Entre em contato com o administrador do sistema."})
+            }
+            
+        } catch (error) {
+            console.log(`Erro ao atualizar um livro. ${error}`);
+
+            return res.status(400).json({ mensagem: "Não foi possível atualizar o livro. Entre em contato com o administrador do sistema." });
+        }
+    }
 }

@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "7f770b08-f21f-44b1-9aa7-544959c74ebd",
+		"name": "BIBLIOSMART",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38148763"
+	},
+	"item": [
+		{
+			"name": "LISTAGEM",
+			"item": [
+				{
+					"name": "ALUNO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/lista/alunos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"lista",
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIVROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/lista/livros",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"lista",
+								"livros"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPRESTIMO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/lista/emprestimos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"lista",
+								"emprestimos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Rotas que fazem a listagem dos Alunos, Livros e Empréstimos que estão cadastrados no sistema."
+		},
+		{
+			"name": "CADASTRO",
+			"item": [
+				{
+					"name": "ALUNO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"nome\": \"Felisberto\",\r\n    \"sobrenome\": \"Feliz\",\r\n    \"dataNascimento\": \"1987-07-07\",\r\n    \"endereco\": \"Rua UFC, 123\",\r\n    \"email\": \"mcgregor@ufc.com\",\r\n    \"celular\": \"16998959876\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/novo/aluno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"novo",
+								"aluno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIVRO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \r\n        \"quantTotal\": 10,\r\n        \"quantDisponivel\": 10,\r\n        \"valorAquisicao\": \"150.00\",\r\n        \"titulo\": \"O Senhor dos Anéis 2024\",\r\n        \"autor\": \"J.R.R. Tolkien\",\r\n        \"editora\": \"HarperCollins\",\r\n        \"anoPublicacao\": \"1954\",\r\n        \"isbn\": \"978-0007525546\",\r\n        \"statusLivroEmprestado\": \"Disponível\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/novo/livro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"novo",
+								"livro"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Rotas que fazem o cadastro de novos Alunos e Livros no sistema."
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "LIVRO",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/remover/livro/23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"remover",
+								"livro",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUNO",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/remover/aluno/36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"remover",
+								"aluno",
+								"36"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Rotas que deletam os Alunos e Livros que estão cadastrados."
+		},
+		{
+			"name": "ATUALIZAR",
+			"item": [
+				{
+					"name": "ALUNO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idAluno\": 35,\r\n    \"ra\": \"\",Triste\r\n    \"nome\": \"Felisberto\",\r\n    \"sobrenome\": \"Feliz\",\r\n    \"endereco\": \"Rua UFC, 123\",\r\n    \"email\": \"mcgregor@ufc.com\",\r\n    \"celular\": \"16998959876\"\r\n}  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/atualizar/aluno/35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"atualizar",
+								"aluno",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIVRO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/atualizar/livro/36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"atualizar",
+								"livro",
+								"36"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Rotas que atualizam as descrições dos Alunos e Livros já cadastrados."
+		}
+	]
+}

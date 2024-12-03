@@ -10,8 +10,8 @@ export class Emprestimo {
     private idEmprestimo: number = 0;
     /* identificador do aluno */
     private idAluno: number = 0;
-    /* identificador do livro */
-    private idLivro: number = 0;
+    /* identificador do emprestimo */
+    private idemprestimo: number = 0;
     /* data do empréstimo */
     private dataEmprestimo: Date;
     /* data da devolução */
@@ -23,20 +23,20 @@ export class Emprestimo {
      * Construtor da classe Emprestimo
      * 
      * @param idAluno Aluno que realiza o empréstimo
-     * @param idLivro Livro a ser emprestado
+     * @param idemprestimo emprestimo a ser emprestado
      * @param dataEmprestimo Data do empréstimo
      * @param dataDevolucao Data da devolução
      * @param statusEmprestimo Status do empréstimo
      */
     constructor(
         idAluno: number,
-        idLivro: number,
+        idemprestimo: number,
         dataEmprestimo: Date,
         dataDevolucao: Date,
         statusEmprestimo: string
     ) {
         this.idAluno = idAluno;
-        this.idLivro = idLivro;
+        this.idemprestimo = idemprestimo;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.statusEmprestimo = statusEmprestimo;
@@ -129,7 +129,7 @@ export class Emprestimo {
                 // Cria uma nova instância de Emprestimo com os dados da linha
                 const novoEmprestimo = new Emprestimo(
                     linha.id_aluno,
-                    linha.id_livro,
+                    linha.id_emprestimo,
                     linha.data_emprestimo,
                     linha.data_devolucao,
                     linha.status_emprestimo
@@ -150,6 +150,35 @@ export class Emprestimo {
             console.log('Erro ao buscar lista de empréstimos. Verifique os logs para mais detalhes.');
             console.log(error);
             return null; // Retorna null em caso de erro na consulta
+        }
+    }
+
+    static async atualizarEmprestimo(emprestimo: Emprestimo): Promise<boolean> {
+        try {
+            // Criação da query SQL para atualizar os campos do emprestimo na tabela 'emprestimo'
+            const queryUpdateEmprestimo = `UPDATE emprestimo SET
+                                   data_emprestimo = '${emprestimo.getDataEmprestimo()}', 
+                                   data_devolucao = '${emprestimo.getDataDevolucao()}',
+                                   status_emprestimos = '${emprestimo.getStatusEmprestimo()}',`;
+
+            // Executa a consulta SQL no banco de dados e armazena o resultado
+            const respostaBD = await database.query(queryUpdateEmprestimo);
+
+            // Verifica se algum registro foi alterado pela operação de atualização
+            if (respostaBD.rowCount != 0) {
+                // Loga uma mensagem indicando que o emprestimo foi atualizado com sucesso
+                console.log(`Emprestimo atualizado com sucesso! ID: ${emprestimo.getIdEmprestimo()}`);
+                return true; // Retorna verdadeiro para indicar sucesso
+            }
+            // Retorna falso se nenhum registro foi alterado (ID inexistente ou dados idênticos)
+            return false;
+        } catch (error) {
+            // Loga uma mensagem genérica de erro em caso de falha na execução
+            console.log(`Erro ao atualizar emprestimo. Verifique os logs para mais detalhes.`);
+            // Exibe detalhes do erro para depuração
+            console.log(error);
+            // Retorna falso em caso de falha na execução
+            return false; 
         }
     }
 }    
