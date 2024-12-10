@@ -159,7 +159,7 @@ export class Emprestimo {
             const queryUpdateEmprestimo = `UPDATE emprestimo SET
                                    data_emprestimo = '${emprestimo.getDataEmprestimo()}', 
                                    data_devolucao = '${emprestimo.getDataDevolucao()}',
-                                   status_emprestimos = '${emprestimo.getStatusEmprestimo()}',`;
+                                   status_emprestimo = '${emprestimo.getStatusEmprestimo()}'`;
 
             // Executa a consulta SQL no banco de dados e armazena o resultado
             const respostaBD = await database.query(queryUpdateEmprestimo);
