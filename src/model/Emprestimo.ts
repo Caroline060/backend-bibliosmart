@@ -11,7 +11,7 @@ export class Emprestimo {
     /* identificador do aluno */
     private idAluno: number = 0;
     /* identificador do emprestimo */
-    private idemprestimo: number = 0;
+    private idLivro: number = 0;
     /* data do empréstimo */
     private dataEmprestimo: Date;
     /* data da devolução */
@@ -30,13 +30,13 @@ export class Emprestimo {
      */
     constructor(
         idAluno: number,
-        idemprestimo: number,
+        idLivro: number,
         dataEmprestimo: Date,
         dataDevolucao: Date,
         statusEmprestimo: string
     ) {
         this.idAluno = idAluno;
-        this.idemprestimo = idemprestimo;
+        this.idLivro = idLivro;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.statusEmprestimo = statusEmprestimo;
@@ -129,7 +129,7 @@ export class Emprestimo {
                 // Cria uma nova instância de Emprestimo com os dados da linha
                 const novoEmprestimo = new Emprestimo(
                     linha.id_aluno,
-                    linha.id_emprestimo,
+                    linha.id_livro,
                     linha.data_emprestimo,
                     linha.data_devolucao,
                     linha.status_emprestimo

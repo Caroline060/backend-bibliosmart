@@ -277,7 +277,7 @@ export class Aluno {
             const queryUpdateAluno = `UPDATE aluno SET
                                    nome = '${aluno.getNome()}', 
                                    sobrenome = '${aluno.getSobrenome()}', 
-                                   data_nascimento = ${aluno.getDataNascimento()}, 
+                                   data_nascimento = '${aluno.getDataNascimento()}', 
                                    endereco = '${aluno.getEndereco()}', 
                                    email = '${aluno.getEmail()}',
                                    celular = '${aluno.getCelular()}'

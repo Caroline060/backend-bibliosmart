@@ -31,7 +31,7 @@ router.get("/lista/livros", LivroController.todos);
 // Rota para cadastrar um novo livro
 router.post("/novo/livro", LivroController.novo);
 // Rota para remover livro
-router.delete("/remover/livro/:idLivro", LivroController.remover)
+router.delete("/remover/livro/:idLivro", LivroController.remover);
 // Rota para atualizar livro
 router.put("/atualizar/livro/:idLivro", LivroController.atualizar);
 
